@@ -12,34 +12,35 @@
 	
 </h:head>
 <h:body>
+	<h:button value="Add Country" outcome="add_country.xhtml" />
 	<h:dataTable value = "#{countryController.countries}" var = "country"
 				styleClass="country-table"
     			headerClass="country-table-header"
     			rowClasses="country-table-odd-row,order-table-even-row">
 	   
 	   <h:column>    				
-	      <f:facet name = "header">Country Code</f:facet>    				
-	      #{country.co_code}
+	      <f:facet name = "header">Country Code</f:facet>
+	      #{country.co_code}				
 	   </h:column>
 	   
 	   <h:column>
 	      <f:facet name = "header">Country Name</f:facet>
-	      #{country.co_name}
+	      #{country.co_name} 
 	   </h:column>
 	   
 	   <h:column>
-	      <f:facet name = "header">Country Description</f:facet>
+	      <f:facet name = "header">Country Details</f:facet>
 	      #{country.co_details}
 	   </h:column>
 	   
-	   
 	   <h:column>
-	   <h:form>
-	      <h:commandLink value="test" action="#{countryController.testFunc()}"/>
-	    </h:form>
+	   	<f:facet name="header">Action</f:facet>
+	   	<h:form>
+	   		<br/>
+	   			<h:commandLink value="Update"  action="#{countryController.loadCountry(country.co_code)}"/>
+	   		</h:form>
 	   </h:column>
-	  
-	   
+
 	</h:dataTable>
 	
 </h:body>

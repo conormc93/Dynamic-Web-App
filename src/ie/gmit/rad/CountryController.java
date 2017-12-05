@@ -17,7 +17,7 @@ public class CountryController {
 	ArrayList<Country> countries;
 	private DAO dao;
 	private Country country;
-	
+
 	public CountryController() {
 		super();
 		countries = new ArrayList<Country>();
@@ -45,21 +45,21 @@ public class CountryController {
 		return country;
 	}
 	
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+	
 	public void loadCountries() throws Exception {
 		countries.clear();
 		if (dao != null) {
 			try {
-				countries = dao.loadCountry();
+				countries = dao.loadCountries();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	public void testFunc() {
-		System.out.println("Test");
-	}
-	
+
 	public String addCountry(Country country) {
 		if (dao != null) {
 			try {
@@ -82,22 +82,28 @@ public class CountryController {
 		return null;
 	}
 	
-	/*
-		
-		public String loadProduct(int productID) {
-			try {
-				product = dao.loadProduct(productID);
-				System.out.println("P=>" + product.toString());
-				return "view_product";
-			} catch (Exception e) {
-				FacesMessage message = new FacesMessage("Error: " + e.getMessage());
-				FacesContext.getCurrentInstance().addMessage(null, message);
-				return null;
-			}
+	public String loadCountry(String co_code) {
+		try {
+			country = dao.loadCountry(co_code);
+			return "view_country";	
+		}catch (Exception e) {
+			return null;
 		}
-
-
-	}*/
-
+	}
+	
+	public String setUpdate(Country c) {
+		setCountry(c);
+		return "view_country";
+	}
+	
+	public String updateCountry(String co_code, String co_name, String co_details) {
+		
+		try {
+			dao.updateCountry(co_code, co_name, co_details);
+			return "list_countries";
+		}catch (Exception e) {
+			return null;
+		}
+	}
 
 }

@@ -1,8 +1,10 @@
 package ie.gmit.rad;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
+@SessionScoped
 public class Country {
 	
 	private String co_code;
@@ -43,7 +45,6 @@ public class Country {
 	public void setCo_details(String co_details) {
 		this.co_details = co_details;
 	}
-	
 	
 
 }

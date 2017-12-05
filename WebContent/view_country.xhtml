@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>	
+	<title>Update Country</title>
+</h:head>
+<h:body>
+	<h3>Update Country</h3>
+	<h:form>
+		Code: <h:inputText type="text" value="#{countryController.country.co_code}" readonly="{facesContext.currentPhaseId.ordinal eq 6}"></h:inputText>
+		<br/>
+		<br/>
+		Name: <h:inputText type="text" value="#{countryController.country.co_code}"></h:inputText>
+		<br/>
+		<br/>
+		Details: <h:inputText type="text" value="#{countryController.country.co_details}"></h:inputText>
+		<br/>
+		<br/>
+		<h:commandButton value="Update" action="countryController.updateCountry(countryController.country.co_code, countryController.country.co_name, countryController.country.co_details)"></h:commandButton>
+	</h:form>
+	
+</h:body>
+</html>
