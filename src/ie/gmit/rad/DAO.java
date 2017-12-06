@@ -113,6 +113,24 @@ public class DAO {
 		myConn.close();
 		myStmt.close();
 	}
+	
+	public void deleteCountry(String co_code) throws Exception {
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		
+		myConn = mysqlDS.getConnection();
+		
+		String sql = "DELETE from country WHERE co_code = ?";
+		myStmt = myConn.prepareStatement(sql);
+		
+		myStmt.setString(1, co_code);
+		
+		myStmt.executeUpdate();
+		myStmt.close();
+		myConn.close();
+		
+		
+	}
 
 }
 

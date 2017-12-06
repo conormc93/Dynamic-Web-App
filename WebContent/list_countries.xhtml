@@ -37,11 +37,13 @@
 	   	<f:facet name="header">Action</f:facet>
 	   	<h:form>
 	   		<br/>
-	   			<h:commandLink value="Update" action="#{countryController.loadCountry(country.co_code)}"/>
-	   		</h:form>
+   			<h:commandLink value="Update" action="#{countryController.loadCountry(country.co_code)}"/>
+   			<br/>
+   			<h:commandLink value="Delete" action="#{countryController.deleteCountry(country.co_code)}"/>
+	   	</h:form>
 	   </h:column>
 
-	</h:dataTable>
+	</h:dataTable>`
 	
 </h:body>
 </html>

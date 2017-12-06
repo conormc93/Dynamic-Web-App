@@ -91,7 +91,14 @@ public class CountryController {
 		}
 	}
 	
-
+	public String deleteCountry(String co_code) {
+		try {
+			dao.deleteCountry(co_code);
+			return "list_countries";
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	public String updateCountry(String co_code, String co_name, String co_details){
 		try {
 			dao.updateCountry(co_code, co_name, co_details);
