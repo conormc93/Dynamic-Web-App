@@ -91,16 +91,14 @@ public class CountryController {
 		}
 	}
 	
-	public String setUpdate(Country c) {
-		setCountry(c);
-		System.out.println(c);
-		return "view_country";
-	}
-	
-	public String updateCountry(String co_code, String co_name, String co_details) throws Exception {
-		dao.updateCountry(co_code, co_name, co_details);
-		return "list_countries";
 
+	public String updateCountry(String co_code, String co_name, String co_details){
+		try {
+			dao.updateCountry(co_code, co_name, co_details);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "list_countries";
 	}
 
 }

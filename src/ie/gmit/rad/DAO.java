@@ -98,18 +98,20 @@ public class DAO {
 	
 	public void updateCountry(String co_code, String co_name, String co_details) throws Exception {
 		Connection myConn = null;
-		PreparedStatement myStmt;
+		PreparedStatement myStmt = null;
 		
 		myConn = mysqlDS.getConnection();
 		
-		String sql = "SELECT from country SET co_name ='" + co_name + "' ,co_details ='" + co_details + "' WHERE co_code = '"+ co_code +"';";
+		String sql = "UPDATE country SET co_name = ? , co_details = ? WHERE co_code = ?";
 		myStmt = myConn.prepareStatement(sql);
+
+		myStmt.setString(1, co_name);
+		myStmt.setString(2, co_details);
+		myStmt.setString(3, co_code);
 		
+		myStmt.execute();
 		myConn.close();
 		myStmt.close();
-		
-		myStmt.executeUpdate(sql);
-		
 	}
 
 }

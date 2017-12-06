@@ -9,7 +9,7 @@
 <h:body>
 	<h3>Update Country</h3>
 	<h:form>
-		Code: <h:inputText type="text" value="#{countryController.country.co_code}" readonly="{facesContext.currentPhaseId.ordinal eq 6}"></h:inputText>
+		Code: <h:inputText value="#{countryController.country.co_code}" readonly="#{not facesContext.postback or facesContext.renderResponse}"></h:inputText>
 		<br/>
 		<br/>
 		Name: <h:inputText type="text" value="#{countryController.country.co_name}"></h:inputText>
@@ -18,7 +18,7 @@
 		Details: <h:inputText type="text" value="#{countryController.country.co_details}"></h:inputText>
 		<br/>
 		<br/>
-		<h:commandButton value="Update" action="countryController.updateCountry(countryController.country.co_code, countryController.country.co_name, countryController.country.co_details)"></h:commandButton>
+		<h:commandButton value="Update" action="#{countryController.updateCountry(countryController.country.co_code, countryController.country.co_name, countryController.country.co_details)}"></h:commandButton>
 	</h:form>
 	
 </h:body>
