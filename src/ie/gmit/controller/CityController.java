@@ -15,71 +15,71 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 @SessionScoped
 @ManagedBean
-public class RegionController {
-	ArrayList<Region> regions;
-	private RegionDAO regionDAO;
-	private Region region;
+public class CityController {
+	
+	ArrayList<City> cities;
+	private CityDAO cityDAO;
+	private City city;
 
-	public RegionController() {
+	public CityController() {
 		super();
-		regions = new ArrayList<Region>();
+		cities = new ArrayList<City>();
 		try {
-			regionDAO = new RegionDAO();
+			cityDAO = new CityDAO();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public RegionController(ArrayList<Region> regions) {
+	public CityController(ArrayList<City> cities) {
 		super();
-		this.regions = regions;
+		this.cities = cities;
 	}
 	
-	public ArrayList <Region> getRegions(){
-		return regions;
+	public ArrayList <City> getCities(){
+		return cities;
 	}
 	
-	public void setRegions(ArrayList<Region>regions) {
-		this.regions = regions;
+	public void setCities(ArrayList<City>cities) {
+		this.cities = cities;
 	}
 	
-	public Region getRegion() {
-		return region;
+	public City getCity() {
+		return city;
 	}
 	
-	public void setRegion(Region region) {
-		this.region = region;
+	public void setCity(City city) {
+		this.city = city;
 	}
 	
-	public void loadRegions() throws Exception {
-		regions.clear();
-		if (regionDAO != null) {
+	public void loadCities() throws Exception {
+		cities.clear();
+		if (cityDAO != null) {
 			try {
-				regions = regionDAO.loadRegions();
+				cities = cityDAO.loadCities();
 			} catch (Exception e) {
-				FacesMessage message = new FacesMessage("Could not load Regions from the DAO");
+				FacesMessage message = new FacesMessage("Could not load Cities from the DAO");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			}
 		}
 	}
 
-	public String addRegion(Region region) {
-		if (regionDAO != null) {
+	public String addCity(City city) {
+		if (cityDAO != null) {
 			try {
-				regionDAO.addRegion(region);
-				return "list_regions";
+				cityDAO.addCity(city);
+				return "list_cities";
 			} catch (MySQLIntegrityConstraintViolationException e) {
-				FacesMessage message = new FacesMessage("Error: Country " + region.getCountryCode() + " does not exist");
+				FacesMessage message = new FacesMessage("Error: Attempting to add Country: " + city.getCountryCode() + ", Region: " + city.getRegionCode() + " and City: " + city.getCityCode());
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			} catch (CommunicationsException e) {
 				FacesMessage message = new FacesMessage("Error: Cannot connect to Database");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			} catch (Exception e) {
-				FacesMessage message = new FacesMessage("Error while trying to insert Region " + region.getRegionName());
+				FacesMessage message = new FacesMessage("Error while trying to insert City " + city.getCityName());
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			}
 		}
 		return null;
 	}
-
 }

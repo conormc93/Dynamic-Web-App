@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>	
+	<title>City List</title>
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{cityController.loadCities()}"/>
+	</f:metadata>
+	
+</h:head>
+<h:body>
+	<h:button value="Add City" outcome="index.xhtml" />
+	
+	<h:dataTable value = "#{cityController.cities}" var = "city"
+				styleClass="city-table"
+    			headerClass="city-table-header"
+    			rowClasses="city-table-odd-row,order-table-even-row">
+	   
+	   <h:column>    				
+	      <f:facet name = "header">City Code</f:facet>
+	      #{city.cityCode}				
+	   </h:column>
+	   
+	   <h:column>    				
+	      <f:facet name = "header">City Code</f:facet>
+	      #{city.cityCode}				
+	   </h:column>
+	   
+	   <h:column>    				
+	      <f:facet name = "header">Region Code</f:facet>
+	      #{city.regionCode}				
+	   </h:column>
+	   
+	   <h:column>    				
+	      <f:facet name = "header">City Name</f:facet>
+	      #{city.cityName}				
+	   </h:column>
+	   
+	   <h:column>    				
+	      <f:facet name = "header">Population</f:facet>
+	      #{city.population}				
+	   </h:column>
+	   
+	   <h:column>    				
+	      <f:facet name = "header">By The Sea</f:facet>
+	      #{city.boolean}				
+	   </h:column>
+	   
+	   <h:column>    				
+	      <f:facet name = "header">Area</f:facet>
+	      #{city.areaKM}				
+	   </h:column>
+	   
+	   <h:column>    				
+	      <f:facet name = "header">Action</f:facet>			
+	   </h:column>
+
+	</h:dataTable>`
+	
+</h:body>
+</html>

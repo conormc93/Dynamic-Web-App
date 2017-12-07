@@ -10,23 +10,23 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import ie.gmit.Model.Region;
+import ie.gmit.Model.City;
 
-public class RegionDAO {
-	private DataSource mysqlDS;
+public class CityDAO {
+private DataSource mysqlDS;
 	
 	/* ======================================================================================================
 	 * Constructor
 	 * ====================================================================================================== */
-	public RegionDAO() throws Exception {
+	public CityDAO() throws Exception {
 		Context context = new InitialContext();
 		String jndiName = "java:comp/env/jdbc/geography";
 		mysqlDS = (DataSource) context.lookup(jndiName);
 	}
 	
 	
-	public ArrayList<Region> loadRegions() throws Exception {
-		ArrayList<Region> regions = new ArrayList<Region>();
+	public ArrayList<City> loadCities() throws Exception {
+		ArrayList<City> cities = new ArrayList<City>();
 	
 		Connection myConn = null;
 		Statement myStmt = null;
@@ -34,7 +34,7 @@ public class RegionDAO {
 		
 		myConn = mysqlDS.getConnection();
 
-		String sql = "select * from region";
+		String sql = "select * from city";
 
 		myStmt = myConn.createStatement();
 		myRs = myStmt.executeQuery(sql);
@@ -43,35 +43,39 @@ public class RegionDAO {
 		while (myRs.next()) {
 				
 			// retrieve data from result set row
+			String cityCode = myRs.getString("cty_code");
 			String countryCode = myRs.getString("co_code");
 			String regionCode = myRs.getString("reg_code");
-			String regionName = myRs.getString("reg_name");
-			String regionDetails = myRs.getString("reg_desc");
+			String cityName = myRs.getString("cty_name");
+			int population = myRs.getInt("population");
+			boolean isCoastal = myRs.getBoolean("isCoastal");
+			float areaKM = myRs.getFloat("areaKM");
 
 			// create new region object
-			Region region = new Region(countryCode, regionCode, regionName, regionDetails);
+			City city = new City(cityCode, countryCode, regionCode, cityName, population, isCoastal, areaKM);
 
-			regions.add(region);
+			cities.add(city);
 		}	
-		return regions;
+		return cities;
 	}
 	
-	public void addRegion(Region region) throws Exception {
+	public void addCity(City city) throws Exception {
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
 		
 		myConn = mysqlDS.getConnection();
-		String sql = "insert into region values (?, ?, ?, ?)";
+		String sql = "insert into city values (?, ?, ?, ?, ?, ?, ?)";
 		myStmt = myConn.prepareStatement(sql);
 		
-		myStmt.setString(1, region.getCountryCode());
-		myStmt.setString(2, region.getRegionCode());
-		myStmt.setString(3, region.getRegionName());
-		myStmt.setString(4, region.getRegionDesc());
+		myStmt.setString(1, city.getCityCode());
+		myStmt.setString(2, city.getCountryCode());
+		myStmt.setString(3, city.getRegionCode());
+		myStmt.setString(4, city.getCityName());
+		myStmt.setInt(5, city.getPopulation());
+		myStmt.setBoolean(6, city.isCoastal());
+		myStmt.setFloat(7, city.getAreaKM());
 		
 		myStmt.execute();			
 	}
 
 }
-
-
