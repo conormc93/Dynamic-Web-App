@@ -58,7 +58,8 @@ public class CountryController {
 			try {
 				countries = countryDAO.loadCountries();
 			} catch (Exception e) {
-				e.printStackTrace();
+				FacesMessage message = new FacesMessage("Could not load Countries from the DAO. ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
 			}
 		}
 	}
@@ -71,15 +72,12 @@ public class CountryController {
 			} catch (MySQLIntegrityConstraintViolationException e) {
 				FacesMessage message = new FacesMessage("Error: Country " + country.getCountryName() + " already exists");
 				FacesContext.getCurrentInstance().addMessage(null, message);
-				return null;
 			} catch (CommunicationsException e) {
 				FacesMessage message = new FacesMessage("Error: Cannot connect to Database");
 				FacesContext.getCurrentInstance().addMessage(null, message);
-				return null;
 			} catch (Exception e) {
 				FacesMessage message = new FacesMessage("Error while trying to insert Country " + country.getCountryName());
 				FacesContext.getCurrentInstance().addMessage(null, message);
-				return null;
 			}
 		}
 		return null;
@@ -90,8 +88,10 @@ public class CountryController {
 			country = countryDAO.loadCountry(countryCode);
 			return "view_country";	
 		}catch (Exception e) {
-			return null;
+			FacesMessage message = new FacesMessage("Error while trying to load the country from the DAO. " + e);
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
+		return null;
 	}
 	
 	public String deleteCountry(String countryCode) {
@@ -99,15 +99,18 @@ public class CountryController {
 			countryDAO.deleteCountry(countryCode);
 			return "list_countries";
 		} catch (Exception e) {
-			return null;
+			FacesMessage message = new FacesMessage("Error while trying to delete the country from the DAO " + e);
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
+		return null;
 	}
 	
 	public String updateCountry(String countryCode, String countryName, String countryDetails){
 		try {
 			countryDAO.updateCountry(countryCode, countryName, countryDetails);
 		} catch (Exception e) {
-			e.printStackTrace();
+			FacesMessage message = new FacesMessage("Error while trying to update the Country to the DAO " + e);
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		return "list_countries";
 	}

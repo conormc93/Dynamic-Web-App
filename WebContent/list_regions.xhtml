@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>	
+	<title>Region List</title>
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{regionController.loadRegions()}"/>
+	</f:metadata>
+	
+</h:head>
+<h:body>
+	<h:button value="Add Region" outcome="index.xhtml" />
+	
+	<h:dataTable value = "#{regionController.regions}" var = "region"
+				styleClass="region-table"
+    			headerClass="region-table-header"
+    			rowClasses="region-table-odd-row,order-table-even-row">
+	   
+	   <h:column>    				
+	      <f:facet name = "header">Country Code</f:facet>
+	      #{region.countryCode}				
+	   </h:column>
+	   
+	   <h:column>
+	      <f:facet name = "header">Region Code</f:facet>
+	      #{region.regionCode} 
+	   </h:column>
+	   
+	   <h:column>
+	      <f:facet name = "header">Region Name</f:facet>
+	      #{region.regionName} 
+	   </h:column>
+	   
+	   <h:column>
+	      <f:facet name = "header">Region Description</f:facet>
+	      #{region.regionDesc}
+	   </h:column>
+
+	</h:dataTable>`
+	
+</h:body>
+</html>
