@@ -82,7 +82,7 @@ public class City {
 	}
 
 	
-	public boolean isCoastal() {
+	public boolean getisCoastal() {
 		return isCoastal;
 	}
 

@@ -12,7 +12,7 @@
 	
 </h:head>
 <h:body>
-	<h:button value="Add City" outcome="index.xhtml" />
+	<h:button value="Add City" outcome="add_city.xhtml" />
 	
 	<h:dataTable value = "#{cityController.cities}" var = "city"
 				styleClass="city-table"
@@ -46,7 +46,7 @@
 	   
 	   <h:column>    				
 	      <f:facet name = "header">By The Sea</f:facet>
-	      #{city.boolean}				
+	      #{city.isCoastal}				
 	   </h:column>
 	   
 	   <h:column>    				

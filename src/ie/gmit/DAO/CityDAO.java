@@ -35,7 +35,7 @@ private DataSource mysqlDS;
 		myConn = mysqlDS.getConnection();
 
 		String sql = "select * from city";
-
+		
 		myStmt = myConn.createStatement();
 		myRs = myStmt.executeQuery(sql);
 
@@ -51,7 +51,7 @@ private DataSource mysqlDS;
 			boolean isCoastal = myRs.getBoolean("isCoastal");
 			float areaKM = myRs.getFloat("areaKM");
 
-			// create new region object
+			// create new city object
 			City city = new City(cityCode, countryCode, regionCode, cityName, population, isCoastal, areaKM);
 
 			cities.add(city);
@@ -72,7 +72,7 @@ private DataSource mysqlDS;
 		myStmt.setString(3, city.getRegionCode());
 		myStmt.setString(4, city.getCityName());
 		myStmt.setInt(5, city.getPopulation());
-		myStmt.setBoolean(6, city.isCoastal());
+		myStmt.setBoolean(6, city.getisCoastal());
 		myStmt.setFloat(7, city.getAreaKM());
 		
 		myStmt.execute();			
