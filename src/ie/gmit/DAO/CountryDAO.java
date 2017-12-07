@@ -1,4 +1,4 @@
-package ie.gmit.rad;
+package ie.gmit.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,13 +11,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class DAO {
+import ie.gmit.Model.Country;
+
+public class CountryDAO {
 	private DataSource mysqlDS;
 	
 	/* ======================================================================================================
 	 * Constructor
 	 * ====================================================================================================== */
-	public DAO() throws Exception {
+	public CountryDAO() throws Exception {
 		Context context = new InitialContext();
 		String jndiName = "java:comp/env/jdbc/geography";
 		mysqlDS = (DataSource) context.lookup(jndiName);
@@ -42,12 +44,12 @@ public class DAO {
 		while (myRs.next()) {
 				
 			// retrieve data from result set row
-			String co_code = myRs.getString("co_code");
-			String co_name = myRs.getString("co_name");
-			String co_details = myRs.getString("co_details");
+			String countryCode = myRs.getString("co_code");
+			String countryName = myRs.getString("co_name");
+			String countryDetails = myRs.getString("co_details");
 
 			// create new country object
-			Country country = new Country(co_code, co_name, co_details);
+			Country country = new Country(countryCode, countryName, countryDetails);
 
 			countries.add(country);
 		}	
@@ -90,13 +92,13 @@ public class DAO {
 		myConn = mysqlDS.getConnection();
 		String sql = "insert into country values (?, ?, ?)";
 		myStmt = myConn.prepareStatement(sql);
-		myStmt.setString(1, country.getCo_code());
-		myStmt.setString(2, country.getCo_name());
-		myStmt.setString(3, country.getCo_details());
+		myStmt.setString(1, country.getCountryCode());
+		myStmt.setString(2, country.getCountryName());
+		myStmt.setString(3, country.getCountryDetails());
 		myStmt.execute();			
 	}
 	
-	public void updateCountry(String co_code, String co_name, String co_details) throws Exception {
+	public void updateCountry(String countryCode, String countryName, String countryDetails) throws Exception {
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
 		
@@ -105,16 +107,16 @@ public class DAO {
 		String sql = "UPDATE country SET co_name = ? , co_details = ? WHERE co_code = ?";
 		myStmt = myConn.prepareStatement(sql);
 
-		myStmt.setString(1, co_name);
-		myStmt.setString(2, co_details);
-		myStmt.setString(3, co_code);
+		myStmt.setString(1, countryName);
+		myStmt.setString(2, countryDetails);
+		myStmt.setString(3, countryCode);
 		
 		myStmt.execute();
 		myConn.close();
 		myStmt.close();
 	}
 	
-	public void deleteCountry(String co_code) throws Exception {
+	public void deleteCountry(String countryCode) throws Exception {
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
 		
@@ -123,7 +125,7 @@ public class DAO {
 		String sql = "DELETE from country WHERE co_code = ?";
 		myStmt = myConn.prepareStatement(sql);
 		
-		myStmt.setString(1, co_code);
+		myStmt.setString(1, countryCode);
 		
 		myStmt.executeUpdate();
 		myStmt.close();

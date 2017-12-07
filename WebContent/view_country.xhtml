@@ -9,16 +9,16 @@
 <h:body>
 	<h3>Update Country</h3>
 	<h:form>
-		Code: <h:inputText value="#{countryController.country.co_code}" readonly="#{not facesContext.postback or facesContext.renderResponse}"></h:inputText>
+		Code: <h:inputText value="#{countryController.country.countryCode}" readonly="#{not facesContext.postback or facesContext.renderResponse}"></h:inputText>
 		<br/>
 		<br/>
-		Name: <h:inputText type="text" value="#{countryController.country.co_name}"></h:inputText>
+		Name: <h:inputText type="text" value="#{countryController.country.countryName}"></h:inputText>
 		<br/>
 		<br/>
-		Details: <h:inputText type="text" value="#{countryController.country.co_details}"></h:inputText>
+		Details: <h:inputText type="text" value="#{countryController.country.countryDetails}"></h:inputText>
 		<br/>
 		<br/>
-		<h:commandButton value="Update" action="#{countryController.updateCountry(countryController.country.co_code, countryController.country.co_name, countryController.country.co_details)}"></h:commandButton>
+		<h:commandButton value="Update" action="#{countryController.updateCountry(countryController.country.countryCode, countryController.country.countryName, countryController.country.countryDetails)}"></h:commandButton>
 	</h:form>
 	
 </h:body>

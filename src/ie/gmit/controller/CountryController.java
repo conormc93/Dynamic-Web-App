@@ -1,4 +1,4 @@
-package ie.gmit.rad;
+package ie.gmit.controller;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+import ie.gmit.DAO.*;
+import ie.gmit.Model.*;
 
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -15,14 +18,14 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 public class CountryController {
 
 	ArrayList<Country> countries;
-	private DAO dao;
+	private CountryDAO countryDAO;
 	private Country country;
 
 	public CountryController() {
 		super();
 		countries = new ArrayList<Country>();
 		try {
-			dao = new DAO();
+			countryDAO = new CountryDAO();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,9 +54,9 @@ public class CountryController {
 	
 	public void loadCountries() throws Exception {
 		countries.clear();
-		if (dao != null) {
+		if (countryDAO != null) {
 			try {
-				countries = dao.loadCountries();
+				countries = countryDAO.loadCountries();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -61,12 +64,12 @@ public class CountryController {
 	}
 
 	public String addCountry(Country country) {
-		if (dao != null) {
+		if (countryDAO != null) {
 			try {
-				dao.addCountry(country);
+				countryDAO.addCountry(country);
 				return "list_countries";
 			} catch (MySQLIntegrityConstraintViolationException e) {
-				FacesMessage message = new FacesMessage("Error: Country " + country.getCo_name() + " already exists");
+				FacesMessage message = new FacesMessage("Error: Country " + country.getCountryName() + " already exists");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 				return null;
 			} catch (CommunicationsException e) {
@@ -74,7 +77,7 @@ public class CountryController {
 				FacesContext.getCurrentInstance().addMessage(null, message);
 				return null;
 			} catch (Exception e) {
-				FacesMessage message = new FacesMessage("Error while trying to insert Country " + country.getCo_name());
+				FacesMessage message = new FacesMessage("Error while trying to insert Country " + country.getCountryName());
 				FacesContext.getCurrentInstance().addMessage(null, message);
 				return null;
 			}
@@ -82,26 +85,27 @@ public class CountryController {
 		return null;
 	}
 	
-	public String loadCountry(String co_code) {
+	public String loadCountry(String countryCode) {
 		try {
-			country = dao.loadCountry(co_code);
+			country = countryDAO.loadCountry(countryCode);
 			return "view_country";	
 		}catch (Exception e) {
 			return null;
 		}
 	}
 	
-	public String deleteCountry(String co_code) {
+	public String deleteCountry(String countryCode) {
 		try {
-			dao.deleteCountry(co_code);
+			countryDAO.deleteCountry(countryCode);
 			return "list_countries";
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	public String updateCountry(String co_code, String co_name, String co_details){
+	
+	public String updateCountry(String countryCode, String countryName, String countryDetails){
 		try {
-			dao.updateCountry(co_code, co_name, co_details);
+			countryDAO.updateCountry(countryCode, countryName, countryDetails);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
